@@ -1,0 +1,150 @@
+\documentclass[12pt,a4paper,titlepage]{article}
+
+
+\usepackage[utf8]{inputenc} 
+
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+
+
+\usepackage{hyperref}
+%%% Doc: ftp://tug.ctan.org/pub/tex-archive/.....ntrib/oberdiek/hypcap.pdf
+% Links auf Gleitumgebungen springen nicht zur Beschriftung,
+% sondern zum Anfang der Gleitumgebung
+\usepackage[figure]{hypcap} 
+%% BibLaTeX:
+ 
+%% in der Präambel:
+\usepackage[backend=biber, %% Hilfsprogramm "biber" (statt "biblatex" oder "bibtex")
+style=authoryear, %% Zitierstil (siehe Dokumentation)
+natbib=true, %% Bereitstellen von natbib-kompatiblen Zitierkommandos
+%%hyperref=true, %% hyperref-Paket verwenden, um Links zu erstellen
+%style=footnote-dw,namefont=italic,firstnamefont=italic,nopublisher=false %Nur die Nummer im text, der Rest als Fußnote
+]{biblatex}
+
+
+\input{definitions.tex}
+
+\usepackage[T1]{fontenc}                     % Codierung der Schriftart
+\usepackage{lmodern}                         % Setze latin modern als Schriftart (statt computer modern)
+\usepackage{floatflt}                        % floating-Umgebung
+\usepackage{here}                            % um Gleitobjekte zu zwingen an bestimmter Stelle zu erscheinen
+\usepackage{xcolor}                          % fuer farbigen Text etc.
+\usepackage[automark,headsepline]{scrpage2}  % stellt z. B. Kopf- und Fusszeilen zur Verfuegung
+
+\usepackage[decimalsymbol=comma]{siunitx} % fuer physikalischen Groessen, mit Komma als Dezimaltrenner
+  \usepackage{tabularx}                        % stellt tabularx-Umgebung zur Verfuegung (Tabellen mit fester Breite)
+  \usepackage{longtable}                       % stellt longtable-Umgebung, fuer Tabellen, die ueber mehrere Seiten gehen
+% bisschen Luxus
+  \usepackage{caption}                         % um captions anzupassen
+  \usepackage{everysel}
+  \usepackage[rightcaption]{sidecap} % erlaubt captions rechts neben Bildern
+  \sidecaptionvpos{figure}{t}        % macht sidecap buendig zur Oberkante
+
+%Check References
+%\usepackage{refcheck}
+%kopf und fußzeilen
+
+\pagestyle{scrheadings}
+\clearscrheadings
+\clearscrplain
+\renewcommand{\headfont}{\scriptsize}
+\rohead{Department Informationstechnologie und Informationsmanagement}
+%\lohead{\headmark}
+%\lofoot{schriftliche Arbeit}
+%\cofoot{\pagemark}
+\rofoot{  \pagemark \\ \hrule \medskip Bachelorstudiengang IT Infrastruktur-Management}
+%\cfoot{\hrule \medskip 1\\2}
+\setheadsepline{.4pt} % Linie unter dem Head
+%\setfootsepline{.4pt} % Ganzunten
+
+
+\newsavebox\KopfBild
+\AtBeginDocument{% Option demo funktioniert vorher nicht
+  \savebox{\KopfBild}{%
+    %\usekomafont{pageheadfoot}% Kopfschrift initialisieren, damit
+                              % alle Maße (wie \ht\strutbox) korrekt sind.
+    \raisebox{0pt}[\ht\strutbox]{% Für den Fall, dass das Logo höher ist,
+                                 % lassen wir es einfach nach oben ragen.
+      \includegraphics[scale=0.3]{Grafiken/logofh.jpg}%
+    }%
+  }%
+}
+%\ohead{\headmark}
+\ihead{\usebox{\KopfBild}}
+%%%ENDE der Kopf und fußzeilen
+
+
+%Jede Sction beginnt eine neue Seite
+\usepackage{titlesec}
+\newcommand{\sectionbreak}{\clearpage}
+
+%Code
+\usepackage{listings}
+\usepackage{color}
+\definecolor{lightpurple}{rgb}{0.8,0.8,1}
+ 
+\lstset{
+numbers=left,
+stepnumber=1,
+numbersep=5pt,
+numberstyle=\small\color{black},
+basicstyle=\ttfamily,
+keywordstyle=\color{black},
+commentstyle=\color{black},
+stringstyle=\color{black},
+frame=single,
+tabsize=2,
+backgroundcolor=\color{lightpurple},
+caption= }
+
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+\begin{document}
+
+\makeatletter
+
+\begin{titlepage}
+\begin{minipage}{\textwidth}
+\textsc{Fachhochschule Burgenland GmbH\\Campus 1\\A-7000 Eisenstadt}\\[1.5cm]
+\end{minipage}
+
+
+\begin{center}
+%\HRule \\[0.4cm]
+{ \huge \bfseries \@title}\\[0.4cm]
+
+%\HRule \\[1.5cm]
+
+\subtitle
+\end{center}
+
+\vfill
+\begin{minipage}{\textwidth}
+\makebox[5cm][l]{Author:}\@author\\
+\makebox[5cm][l]{Supervisor:}\supervisor\\
+\makebox[5cm][l]{Personal identifier:}\personalid\\
+\makebox[5cm][l]{Date:}\today, \city\\
+\end{minipage}
+
+
+\end{titlepage}
+
+\input{abstract.tex}
+
+\tableofcontents
+
+\input{content.tex}
+
+%Show all articles even if not cite
+%\nocite{*}
+
+
+\printbibliography
+\listoffigures
+\listoftables
+
+\end{document}
